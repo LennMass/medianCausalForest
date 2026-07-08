@@ -1,0 +1,16 @@
+exportPattern("^[[:alpha:]]+")
+useDynLib("robustCausalTree")
+importFrom(Rcpp, evalCpp)
+importFrom("grDevices", "colorRampPalette", "rgb","dev.cur")
+importFrom("graphics", "abline", "axis", "hist", "image", "layout",
+           "legend", "lines", "mtext", "par", "plot.new", "polygon",
+           "rect", "segments", "text")
+importFrom("stats", "as.formula", "coef", "density", "lm", "pnorm",
+           "var")
+importFrom("utils", "data", "install.packages", "installed.packages",
+               "write.csv", "capture.output", "head")
+importFrom("stats", ".checkMFClasses", ".getXlevels", "model.frame",
+               "model.matrix", "model.offset", "model.response",
+               "model.weights", "predict")             
+S3method(model.frame,causalTree)
+S3method(predict,causalForest)
