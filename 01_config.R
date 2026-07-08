@@ -16,9 +16,16 @@ cran <- c(
 pak::pkg_install(c(cran, "github::michaelpollmann/parTreat"),
                  upgrade = FALSE, dependencies = NA, ask = FALSE)
 
+# declare root
+here::i_am("01_config.R")
+
 # robustCausalTree from local source ('here' is installed above).
 rct <- here::here("core", "robustCausalTree")
 pak::local_install(rct, upgrade = FALSE, dependencies = NA, ask = FALSE)
 
+# Project functions
+source(here::here("simulation", "helper.R"))
+source(here::here("simulation", "dgp.R"))
+source(here::here("simulation", "estimators.R"))
 
 
