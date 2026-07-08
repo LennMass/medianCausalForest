@@ -26,26 +26,26 @@ medianCausalForest/
 ├── LICENSE
 ├── .gitignore
 ├── 01_config.R                install required R packages
-├── core/                   core functions 
+├── core/                      core functions 
 │   ├──
 │   └── 
-├── simulation/             simulation files
+├── simulation/                simulation files
 │   ├──
 │   └── 
 ├── application/
-│   ├── progresa/           Progresa application (de la O, 2013)
-│   └── actg175/            ACTG 175 application (Hammer et al., 1996)
+│   ├── progresa/              Progresa application (de la O, 2013)
+│   └── actg175/               ACTG 175 application (Hammer et al., 1996)
 └── output/
-    ├── figures/             generated figures
-    └── tables/              generated tables
+    ├── figures/               generated figures
+    └── tables/                generated tables
 ```
 
 ## Requirements
 
-- R (>= 4.1).
+- R (>= 4.3.0). Tested under R version 4.5.3.
 - Necessary packages are listed and installed with `01_config.R`.
 - The ACTG 175 data are commonly accessed through (`speff2trial`)[https://cran.r-project.org/web/packages/speff2trial/index.html].
-  The Progresa data is accessed from the [repository](https://github.com/ghoshadi/RRE)
+  The Progresa data are accessed from the [repository](https://github.com/ghoshadi/RRE)
   that corresponds to [Ghosh et al. (2026)](https://arxiv.org/pdf/2111.15524). 
 
 
