@@ -25,7 +25,7 @@ medianCausalForest/
 ├── README.md
 ├── LICENSE
 ├── .gitignore
-├── dependencies.R          install required R packages
+├── 01_config.R                install required R packages
 ├── core/                   core functions 
 │   ├──
 │   └── 
@@ -43,11 +43,10 @@ medianCausalForest/
 ## Requirements
 
 - R (>= 4.1).
-- Packages: `causalTree`, `htetree`, `grf`, `dplyr`, `ggplot2`, `patchwork`,
-  `kableExtra`. The ACTG 175 data are commonly accessed through (`speff2trial`)[https://cran.r-project.org/web/packages/speff2trial/index.html].
+- Necessary packages are listed and installed with `01_config.R`.
+- The ACTG 175 data are commonly accessed through (`speff2trial`)[https://cran.r-project.org/web/packages/speff2trial/index.html].
   The Progresa data is accessed from the [repository](https://github.com/ghoshadi/RRE)
   that corresponds to [Ghosh et al. (2026)](https://arxiv.org/pdf/2111.15524). 
-- `causalTree` is not on CRAN. It is installed from GitHub by `dependencies.R`.
 
 
 
