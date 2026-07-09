@@ -56,3 +56,6 @@ rsconnect/
 
 # intermediate object files
 *.o
+
+# generated data files
+*.rds
