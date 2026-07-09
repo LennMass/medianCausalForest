@@ -25,25 +25,25 @@ medianCausalForest/
 ├── README.md
 ├── LICENSE
 ├── .gitignore
-├── 01_config.R                install required R packages
+├── 00_setup.R                 install required R packages once
+├── 01_config.R                load required R packages
 ├── core/                      core functions 
-│   ├──
-│   └── 
+│   └── robustCausalTree/      local causal forest package that integrates median-based splitting rules
 ├── simulation/                simulation files
-│   ├──
+│   ├──                        
 │   └── 
-├── application/
-│   ├── progresa/              Progresa application (de la O, 2013)
-│   └── actg175/               ACTG 175 application (Hammer et al., 1996)
-└── output/
-    ├── figures/               generated figures
-    └── tables/                generated tables
+├── application/               application files
+│   ├── progresa/              
+│   └── actg175/               
+└── output/                    generated figures
+│   ├── sim_plots/                     
+│   └── application_plots/
 ```
 
 ## Requirements
 
 - R (>= 4.3.0). Tested under R version 4.5.3.
-- Necessary packages are listed and installed with `01_config.R`.
+- Necessary packages are installed with `00_setup.R` and loaded with `01_config.R`.
 - The ACTG 175 data are commonly accessed through (`speff2trial`)[https://cran.r-project.org/web/packages/speff2trial/index.html].
   The Progresa data are accessed from the [repository](https://github.com/ghoshadi/RRE)
   that corresponds to [Ghosh et al. (2026)](https://arxiv.org/pdf/2111.15524). 
