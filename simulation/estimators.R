@@ -23,14 +23,10 @@ classical_ATE <- function(Y, W, X, R_boot = 99L) {
   
   # ----- point estimates -----
   est_DM      <- mean(y1) - mean(y0)
-  est_DiffMed <- median(y1) - median(y0)
-  est_HL      <- DescTools::HodgesLehmann(y1, y0)
-  
   
   Xc      <- scale(Xdf, center = TRUE, scale = FALSE)
   fit_lin <- lm(Y ~ W * ., data = cbind.data.frame(Y = Y, W = W, Xc))
   est_Lin <- unname(coef(fit_lin)["W"])
-  se_Lin  <- sqrt(sandwich::vcovHC(fit_lin, type = "HC2")["W", "W"])
   
   est_Radj <- rosen_root(Y, W, Xdf)
   
@@ -40,30 +36,27 @@ classical_ATE <- function(Y, W, X, R_boot = 99L) {
   
   # ----- analytic SEs -----
   se_DM  <- sqrt(var(y1)/n1 + var(y0)/n0)
+  se_Lin  <- sqrt(sandwich::vcovHC(fit_lin, type = "HC2")["W", "W"])
   wt     <- suppressWarnings(wilcox.test(y1, y0, conf.int = TRUE, exact = FALSE))
-  se_HL  <- diff(wt$conf.int) / (2 * qnorm(0.975))
   se_EIF <- tryCatch(as.numeric(eif$se), error = function(e) NA_real_)
   se_WAQ <- tryCatch(as.numeric(waq$se), error = function(e) NA_real_)
   
-  # ----- bootstrap SEs (DiffMed, Rosenbaum) -----
-  B <- matrix(NA_real_, R_boot, 2,
-              dimnames = list(NULL, c("DiffMed", "Radj")))
+  # ----- bootstrap SEs (Rosenbaum) -----
+  B <- matrix(NA_real_, R_boot, 1, dimnames = list(NULL, c("Radj")))
   for (b in seq_len(R_boot)) {
     idx <- sample.int(n, n, replace = TRUE)
     Yb  <- Y[idx]; Wb <- W[idx]; Xb <- Xdf[idx, , drop = FALSE]
     y1b <- Yb[Wb == 1]; y0b <- Yb[Wb == 0]
     if (length(y1b) < 2 || length(y0b) < 2) next
-    B[b, "DiffMed"] <- median(y1b) - median(y0b)
     B[b, "Radj"]    <- tryCatch(rosen_root(Yb, Wb, Xb),
                                 error = function(e) NA_real_)
   }
-  se_DiffMed <- sd(B[, "DiffMed"], na.rm = TRUE)
   se_Radj    <- sd(B[, "Radj"],    na.rm = TRUE)
   
   data.frame(
-    method   = c("DM", "DiffMed", "HL", "Lin", "RosenbaumAdj", "EIF", "WAQ"),
-    estimate = c(est_DM, est_DiffMed, est_HL, est_Lin, est_Radj, est_EIF, est_WAQ),
-    std.err  = c(se_DM, se_DiffMed, se_HL, se_Lin, se_Radj, se_EIF, se_WAQ),
+    method   = c("DM", "Lin", "RosenbaumAdj", "EIF", "WAQ"),
+    estimate = c(est_DM, est_Lin, est_Radj, est_EIF, est_WAQ),
+    std.err  = c(se_DM, se_Lin, se_Radj, se_EIF, se_WAQ),
     stringsAsFactors = FALSE
   )
 }
