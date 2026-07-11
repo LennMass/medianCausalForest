@@ -12,7 +12,8 @@ if (!requireNamespace("pak", quietly = TRUE)) install.packages("pak")
 cran <- c(
   "data.tree", "DescTools", "devtools", "dplyr", "ggplot2", "grf",
   "here", "Matching", "partykit", "randomForest", "ranger", "rpart",
-  "sandwich", "SimDesign", "speff2trial", "kableExtra"
+  "sandwich", "SimDesign", "speff2trial", "kableExtra", "patchwork", 
+  "moments", "rio"
 )
 
 pak::pkg_install(c(cran, "github::michaelpollmann/parTreat"),

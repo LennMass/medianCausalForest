@@ -12,7 +12,8 @@ here::i_am("01_config.R")
 # Load necessary packages that we want to have in the search path
 loadpacks <- c(
   "tidyverse", "here", "randomForest", "SimDesign", "sandwich",
-  "DescTools", "parTreat", "rpart", "robustCausalTree"
+  "DescTools", "parTreat", "rpart", "robustCausalTree", "speff2trial",
+  "moments", "patchwork", "kableExtra", "rio"
 )
 
 suppressPackageStartupMessages(
