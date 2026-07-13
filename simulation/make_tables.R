@@ -4,10 +4,12 @@
 
 source(here::here("01_config.R"))
 
-path_out <- "simulation/raw_results"
+path_in <- "simulation/raw_results"
+path_out <- "output/sim_tables/"
+
 
 # Read every results file
-files <- list.files(here::here(path_out), pattern = "^results_S[0-9]+_seed.*\\.rds$",
+files <- list.files(here::here(path_in), pattern = "^results_S[0-9]+_seed.*\\.rds$",
                     full.names = TRUE)
 all_results <- do.call(rbind, lapply(files, readRDS))
 
@@ -525,7 +527,7 @@ ate_table %>%
 print(all_results)
 print(cate_table, n = Inf)
 print(ate_table,  n = Inf)
-saveRDS(all_results, here::here(paste0("simulation/aggregate_results/", "all_results.rds")))
-saveRDS(cate_table, here::here(paste0("simulation/aggregate_results/", "summary_CATE.rds")))
-saveRDS(ate_table,  here::here(paste0("simulation/aggregate_results/", "summary_ATE.rds")))
+saveRDS(all_results, here::here(paste0(path_out, "all_results.rds")))
+saveRDS(cate_table, here::here(paste0(path_out, "summary_CATE.rds")))
+saveRDS(ate_table,  here::here(paste0(path_out, "summary_ATE.rds")))
 
