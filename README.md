@@ -46,7 +46,7 @@ medianCausalForest/
 
 - R (>= 4.3.0). Tested under R version 4.5.3.
 - Necessary packages are installed with `00_setup.R` and loaded with `01_config.R`.
-- The ACTG 175 data are commonly accessed through [`speff2trial`](https://cran.r-project.org/web/packages/speff2trial/index.html}.
+- The ACTG 175 data are commonly accessed through [`speff2trial`](https://cran.r-project.org/web/packages/speff2trial/index.html).
   The Progresa data are accessed from the public [repository](https://github.com/ghoshadi/RRE)
   that corresponds to [Ghosh et al. (2026)](https://arxiv.org/pdf/2111.15524).
 
