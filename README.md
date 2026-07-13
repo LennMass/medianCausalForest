@@ -30,8 +30,8 @@ medianCausalForest/
 ├── core/                      core functions 
 │   └── robustCausalTree/      local causal forest package that integrates median-based splitting rules
 ├── simulation/                simulation files
-│   ├──                        
-│   └── 
+│   ├── raw_results/
+│   └── aggrgeated_results/
 ├── application/               application files
 │   ├── progresa/              
 │   └── actg175/               
