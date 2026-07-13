@@ -35,9 +35,11 @@ medianCausalForest/
 ├── application/               application files
 │   ├── progresa/              
 │   └── actg175/               
-└── output/                    generated figures
+└── output/                    generated results
+│   ├── application_plots/                     
+│   ├── application_tables/                     
 │   ├── sim_plots/                     
-│   └── application_plots/
+│   └── sim_tables/                     
 ```
 
 ## Requirements
@@ -45,15 +47,10 @@ medianCausalForest/
 - R (>= 4.3.0). Tested under R version 4.5.3.
 - Necessary packages are installed with `00_setup.R` and loaded with `01_config.R`.
 - The ACTG 175 data are commonly accessed through (`speff2trial`)[https://cran.r-project.org/web/packages/speff2trial/index.html].
-  The Progresa data are accessed from the [repository](https://github.com/ghoshadi/RRE)
-  that corresponds to [Ghosh et al. (2026)](https://arxiv.org/pdf/2111.15524). 
+  The Progresa data are accessed from the public [repository](https://github.com/ghoshadi/RRE)
+  that corresponds to [Ghosh et al. (2026)](https://arxiv.org/pdf/2111.15524).
 
 
 
-## Outputs
-
-
-
-## License
 
 

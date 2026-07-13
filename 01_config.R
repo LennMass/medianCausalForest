@@ -24,5 +24,6 @@ suppressPackageStartupMessages(
 source(here::here("simulation", "helper.R"))
 source(here::here("simulation", "dgp.R"))
 source(here::here("simulation", "estimators.R"))
+source(here::here("application", "ATE_helpers.R"))
 
 
