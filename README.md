@@ -15,8 +15,8 @@ outcomes are heavy-tailed or skewed, that objective becomes unstable and CATE
 estimates might degrade. This repository replaces the mean-based criterion with the
 Median Squared Deviation (MSD), evaluated around Hodges-Lehmann leaf effects, and
 provides the simulation study and empirical applications reported in the paper.
-MSD is the primary, theoretically grounded criterion. Median Absolute Deviation (MAD) and Least Median Squares (LMS) are included
-as secondary heuristic variants.
+MSD is the primary criterion that we implement, besides including the secondary criterion variants of 
+Median Absolute Deviation (MAD) and Least Median Squares (LMS). 
 
 ## Repository structure
 
