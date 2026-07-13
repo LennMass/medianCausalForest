@@ -10,7 +10,7 @@ treatment effects (CATEs) under heavy-tailed and skewed outcome distributions.
 ## Overview
 
 Honest causal trees [(Athey and Imbens, 2016)](https://www.pnas.org/doi/10.1073/pnas.1510489113) select splits by maximising
-estimated treatment-effect heterogeneity under a mean-based objective. When
+estimated treatment effect heterogeneity under a mean-based objective. When
 outcomes are heavy-tailed or skewed, that objective becomes unstable and CATE
 estimates might degrade. This repository replaces the mean-based criterion with the
 Median Squared Deviation (MSD), evaluated around Hodges-Lehmann leaf effects, and
