@@ -97,6 +97,7 @@ stats_B <- plot_data %>%
 pB <- ggplot(plot_data, aes(x = cd496)) +
   geom_density(fill = "grey80", color = "grey30", linewidth = 0.5, alpha = 0.8) +
   geom_rug(color = "grey50", alpha = 0.3, linewidth = 0.3) +
+  facet_wrap(~Group, ncol = 1) +
   labs(
     title = "B. By treatment status",
     x = "CD4 count at 96 weeks", y = "Density"

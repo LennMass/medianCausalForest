@@ -13,7 +13,7 @@ cran <- c(
   "data.tree", "DescTools", "devtools", "dplyr", "ggplot2", "grf",
   "here", "Matching", "partykit", "randomForest", "ranger", "rpart",
   "sandwich", "SimDesign", "speff2trial", "kableExtra", "patchwork", 
-  "moments", "rio"
+  "moments", "rio", "foreign", "pbmcapply" 
 )
 
 pak::pkg_install(c(cran, "github::michaelpollmann/parTreat"),

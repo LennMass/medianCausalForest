@@ -13,7 +13,7 @@ here::i_am("01_config.R")
 loadpacks <- c(
   "tidyverse", "here", "randomForest", "SimDesign", "sandwich",
   "DescTools", "parTreat", "rpart", "robustCausalTree", "speff2trial",
-  "moments", "patchwork", "kableExtra", "rio"
+  "moments", "patchwork", "kableExtra", "rio", "foreign", "pbmcapply"
 )
 
 suppressPackageStartupMessages(
