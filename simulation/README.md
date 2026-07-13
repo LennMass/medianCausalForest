@@ -73,5 +73,3 @@ median–mean equivalence proposition: (i) leafwise location shift, and
 - **Conditions:** (i) holds, (ii) violated
 
 ---
-
-
