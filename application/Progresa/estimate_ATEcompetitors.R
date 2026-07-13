@@ -146,3 +146,6 @@ out <- data.frame(
 print(out, digits = 4)
 
 saveRDS(out, paste0(path_out, "results/progresa_ATE_competitors.rds"))
+
+
+
