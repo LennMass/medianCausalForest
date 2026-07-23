@@ -86,7 +86,7 @@ p_ate_main <- all_results %>%
 
 
 ggsave(here::here(paste0(path_out, "boxplot_ATE_main.pdf")),
-       p_ate_precision, width = 10, height = 6)
+       p_ate_main, width = 10, height = 6)
 
 
 
