@@ -515,7 +515,7 @@ blb_cate <- function(
     
     
     # Final variance estimate
-    
+    V_hat <- NaN
     Sigma_hat <- H_hat
     
   } else {
