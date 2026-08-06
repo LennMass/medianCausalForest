@@ -19,5 +19,5 @@ cran <- c(
 pak::pkg_install(c(cran, "github::michaelpollmann/parTreat"),
                  upgrade = FALSE, dependencies = NA, ask = FALSE)
 
-pak::local_install(here::here("01_code", "01_ct_dev_folders", "robustCausalTree"),
+pak::local_install(here::here("core", "robustCausalTree"),
                    upgrade = FALSE, dependencies = NA, ask = FALSE)

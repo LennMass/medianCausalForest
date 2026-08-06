@@ -47,6 +47,7 @@ robustCausalForest <- function(Y, # outcome variable
                                s_ratio, # (only needed for BJB) 
                                minsize_blb, # (only needed for BJB)
                                half_sample_size=2, # (only needed for BJB)
+                               scaling=TRUE, # (only needed for BJB)
                                split.alpha=0.5,
                                sample.size.total = floor(nrow(X) / 10),
                                cv.alpha=0.5, 
@@ -159,7 +160,8 @@ robustCausalForest <- function(Y, # outcome variable
                          half_sample_size=half_sample_size,
                          sample.size.total=sample.size.total,
                          split.Rule = split.R,
-                         cv.option = cv.opt)
+                         cv.option = cv.opt, 
+                         scaling = TRUE)
       
       tau.var.hat[idx == i] <- blb_se$tau_se
       
@@ -380,7 +382,8 @@ blb_cate <- function(
     half_sample_size=2, # 2: proper half-sample; 1: full sample; 1.5: 3/4 sample
     sample.size.total=sample.size.total,
     split.Rule = split.R,
-    cv.option = cv.opt
+    cv.option = cv.opt, 
+    scaling = TRUE
 ) {
   
   if (is.null(Xnew)) Xnew <- X
@@ -481,31 +484,44 @@ blb_cate <- function(
   )
   
   # ---- H-BLB variance estimator (ANOVA formula)  ----
-  H_hat_raw <- between_var - within_var / (ell - 1) # mean should be close to zero, otherwise increase B
+  #H_hat_raw <- between_var - within_var / (ell - 1) # mean should be close to zero, otherwise increase B
+  H_hat_raw <- ((G / (G - 1))  * between_var) - within_var / (ell - 1)
   # Bayesian ANOVA shrinkage (Bayesian ANOVA formula)
-  # shrinks more when G is small
-  # converges to the classical estimator as B approaches infinity
-  H_hat <- (G - 1) / G * (between_var - within_var / ell)
-  H_hat <- pmax(H_hat, 0)   # Truncate at zero (posterior support)
+  H_hat <- pmax(H_hat_raw, 0)   # Truncate at zero (posterior support)
   
   if (mean(H_hat_raw < 0) > 0.05) {
     warning(paste(mean(H_hat_raw < 0), " of H_hat values truncated at zero — consider increasing B."))
   }
   
-  # Step 3: V-BLB estimator: pseudo-outcome for curvature ----
   
-  # pseudo-outcome for curvature
-  curv_y <- (W - W.hat)^2
+  if(scaling == TRUE) {
+    
+    # Step 3: V-BLB estimator: pseudo-outcome for curvature ----
+    
+    # pseudo-outcome for curvature
+    curv_y <- (W - W.hat)^2
+    
+    # honest regression forest
+    rf_V <- grf::regression_forest(X, curv_y, honesty = TRUE)
+    
+    V_hat <- predict(rf_V, Xnew)$predictions
+    V_inv <- 1/V_hat
+    
+    # Step 4: Final variance estimate (see Eq (16) in GRF paper) ----
+    
+    Sigma_hat <- V_inv^2 * H_hat
+    
+  } else if(scaling==FALSE){
+    
+    
+    # Final variance estimate
+    
+    Sigma_hat <- H_hat
+    
+  }
   
-  # honest regression forest
-  rf_V <- grf::regression_forest(X, curv_y, honesty = TRUE)
   
-  V_hat <- predict(rf_V, Xnew)$predictions
-  V_inv <- 1/V_hat
-  
-  # Step 4: Final variance estimate (see Eq (16) in GRF paper) ----
-  
-  Sigma_hat <- V_inv^2 * H_hat
+  # Final standard error
   se_hat    <- sqrt(Sigma_hat)
   
   
