@@ -161,7 +161,7 @@ robustCausalForest <- function(Y, # outcome variable
                          sample.size.total=sample.size.total,
                          split.Rule = split.R,
                          cv.option = cv.opt, 
-                         scaling = TRUE)
+                         scaling.H = scaling)
       
       tau.var.hat[idx == i] <- blb_se$tau_se
       
@@ -383,7 +383,7 @@ blb_cate <- function(
     sample.size.total=sample.size.total,
     split.Rule = split.R,
     cv.option = cv.opt, 
-    scaling = TRUE
+    scaling.H = TRUE
 ) {
   
   if (is.null(Xnew)) Xnew <- X
@@ -494,7 +494,7 @@ blb_cate <- function(
   }
   
   
-  if(scaling == TRUE) {
+  if(scaling.H == TRUE) {
     
     # Step 3: V-BLB estimator: pseudo-outcome for curvature ----
     
@@ -511,13 +511,15 @@ blb_cate <- function(
     
     Sigma_hat <- V_inv^2 * H_hat
     
-  } else if(scaling==FALSE){
+  } else if(scaling.H==FALSE){
     
     
     # Final variance estimate
     
     Sigma_hat <- H_hat
     
+  } else {
+    stop("Choose scaling properley (TRUE/FALSE).")
   }
   
   
