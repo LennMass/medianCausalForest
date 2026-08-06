@@ -13,7 +13,7 @@ source(here::here("01_config.R"))
 scenarios <- data.frame(
   id          = paste0("S", 1),                # scenario name (S1, S2, ...)
   N           = c(1000),                       # 1000, 2000 
-  D           = c(5),                          # 5, 10, 20
+  D           = c(10),                          # 5, 10, 20
   noise       = c("normal"),                   # normal, heavy
   tau_effect  = c("het"),                      # het, het.sparse 
   ite_noise   = c("none"),                     # none, skewed   
@@ -134,12 +134,20 @@ for (s_i in seq_len(nrow(scenarios))) {
           
           forest_rows[[length(forest_rows) + 1]] <- data.frame(
             method     = rule, blb_scaling = BLB_scaling, 
-            estimand = "CATE",
+            estimand   = "CATE",
             rmse       = rmse_eval(est$pred_cate$estimate, d$tau),
             absbias    = mean(abs(est$pred_cate$estimate - d$tau)),
             coverage   = mean(cate_cv$coverage),
             width      = mean(cate_cv$width),
-            signed_err = NA_real_,
+            # Check center shift
+            bias       = mean(est$pred_cate$estimate - d$tau),
+            # Empirical SD of estimates (measures actual variance in this run)
+            empirical_sd   = sd(est$pred_cate$estimate),
+            # Tail mis-coverage (checks narrowness vs bias direction)
+            # true tau(x) below lower CI bound of CATE
+            miss_low  = mean(d$tau < (est$pred_cate$estimate - 1.96 * est$pred_cate$std.err)),
+            # # true tau(x) above upper CI bound of CATE
+            miss_high =  mean(d$tau > (est$pred_cate$estimate + 1.96 * est$pred_cate$std.err)),
             stringsAsFactors = FALSE
           )
           # forest_rows[[length(forest_rows) + 1]] <- data.frame(
