@@ -13,19 +13,19 @@ source(here::here("01_config.R"))
 scenarios <- data.frame(
   id          = paste0("S", 1),                # scenario name (S1, S2, ...)
   N           = c(1000),                       # 1000, 2000 
-  D           = c(10),                          # 5, 10, 20
+  D           = c(10),                         # 5, 10, 20
   noise       = c("normal"),                   # normal, heavy
   tau_effect  = c("het"),                      # het, het.sparse 
   ite_noise   = c("none"),                     # none, skewed   
   scale_treat = c(1),                          # 1 
-  scale_U = c(1),                              # 1, 2
+  scale_U = c(2),                              # 1, 2
   description = c(""),                         # optional description 
   stringsAsFactors = FALSE
 )
 
 
 # ---- Global sim settings ----------------------------------------------------
-sims           <- 1                            # replications per seed
+sims           <- 20                            # replications per seed
 setseed_vec    <- c(6)                         # 6, 15609, 100, 5020, 42
 k              <- 4                            # cross-fitting folds
 ntrees         <- 2000                         # number of trees in forest
