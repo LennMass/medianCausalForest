@@ -76,6 +76,10 @@ tab <- results_summary %>%
     `Miss high`= sprintf("%.3f", miss_high)
   )
 
+# save table
+saveRDS(tab, here::here(paste0(path_out, "summary_BLB_scaling.rds")))
+
+# create latex code
 tab %>%
   kbl(format   = "latex",
       booktabs = TRUE,
