@@ -24,6 +24,20 @@ MSD.estims$pred_cate <- MSD.estims$pred_cate %>% mutate(method = "CF (MSD)", ATE
 
 ##### Output plots #####
 
+# shared theme to avoid repetition
+box_theme <- theme_bw(base_size = 12) +
+  theme(
+    axis.text.x      = element_text(size = 11),
+    axis.text.y      = element_text(size = 11),
+    axis.title       = element_text(size = 12),
+    strip.text       = element_text(size = 11, face = "bold"),
+    legend.text      = element_text(size = 11),
+    legend.title     = element_text(size = 12),
+    legend.position  = "none",
+    strip.background = element_rect(fill = "grey92")
+  )
+
+
 # Combine and compute CIs
 plot_df <- bind_rows(MSE.estims$pred_cate, MSD.estims$pred_cate) %>%
   mutate(
@@ -51,7 +65,7 @@ fig_cate <- ggplot(plot_df, aes(x = id, y = estimate, color = method)) +
     size = 0.5,
     alpha = 0.8
   )+
-  scale_color_manual(values = c("CF (MSE)" = "#1b9e77", "CF (MSD)" = "#d95f02")) +
+  scale_color_manual(values = c("CF (MSE)" = "darkgrey", "CF (MSD)" = "#d95f02")) +
   #geom_hline(yintercept = 0, linetype = "dashed", color = "grey50") +
   geom_hline(
     data = ate_df,
@@ -70,15 +84,13 @@ fig_cate <- ggplot(plot_df, aes(x = id, y = estimate, color = method)) +
   ) +
   facet_wrap(~ method, scales = "free", ncol=1, nrow=2) +
   labs(
-    x = "ID",
-    y = "CATE Estimate",
+    x = "unit ID",
+    y = "CATE estimate",
     color = "Method",
     #title = "CATE Estimates with 95% CIs"
   ) +
-  theme_minimal() +
-  theme(
-    legend.position = "top", 
-    strip.text = element_blank())
+  box_theme
+  
 
 ggsave(here::here(paste0(path_out, "plot_CATE_actg175.pdf")), fig_cate,
        width = 7, height = 3.5)
@@ -91,15 +103,14 @@ fig_hist <- ggplot(plot_df, aes(x = estimate, fill = method)) +
   geom_histogram(
     aes(y = after_stat(density)),
     position = "identity",
-    alpha = 0.45,
+    alpha = 0.6,
     bins = 40
   ) +
-  scale_fill_manual(values = c("CF (MSE)" = "#1b9e77", "CF (MSD)" = "#d95f02")) +
+  scale_fill_manual(values = c("CF (MSE)" = "darkgrey", "CF (MSD)" = "#d95f02")) +
   geom_vline(xintercept = mean(ate_df$ATE),
              linetype = "dashed",
              linewidth = 0.8
   ) +
-  #scale_color_manual(values = c("CF (MSE)" = "black", "CF (MSD)" = "black")) +
   labs(
     x = "CATE estimates",
     y = "Density",
@@ -107,8 +118,8 @@ fig_hist <- ggplot(plot_df, aes(x = estimate, fill = method)) +
     color = "Method",
     #title = "Distribution of CATE estimates"
   ) +
-  theme_minimal() +
-  theme(legend.position = "top")
+  box_theme +
+  theme(legend.position = "top", legend.title = element_blank())
 
 ggsave(here::here(paste0(path_out, "histogram_CATE_actg175.pdf")), fig_hist,
        width = 7, height = 3.5)

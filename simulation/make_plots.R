@@ -76,7 +76,7 @@ p_ate_main <- all_results %>%
                names_to = "metric", values_to = "value") %>%
   mutate(metric = factor(metric,
                          levels = c("absbias"),
-                         labels = c("Abs. Error"))) %>%
+                         labels = c("Abs. Bias"))) %>%
   ggplot(aes(x = method, y = value, fill = method)) +
   geom_boxplot(outlier.size = 0.4, linewidth = 0.3) +
   facet_grid(metric ~ scenario, scales = "free_y") +
