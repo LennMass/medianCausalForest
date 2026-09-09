@@ -1,6 +1,6 @@
 # medianCausalForest
 
-Replication materials for [*Median-based Splitting Rules for the Causal Tree*](https://arxiv.org/abs/2609.07888), which introduces a **Median
+Replication materials for [*Median-based Splitting Rules for Causal Trees and Forests*](https://arxiv.org/abs/2609.07888), which introduces a **Median
 Squared Deviation (MSD)** splitting criterion for honest causal trees within the causal forest framework
 ([Athey and Imbens, 2016](https://www.pnas.org/doi/10.1073/pnas.1510489113); [Wager and Athey, 2018](https://www.pnas.org/doi/10.1073/pnas.1510489113])).
 Split selection is anchored on the **Hodges-Lehmann**
